@@ -126,34 +126,9 @@ def test_one_user_cold_citeu(x):
 
     # return get_performance(user_pos_test, r, auc, Ks)
     return result
-# def test_pop(users_to_test, item_rate):
-#     result = {'precision': np.zeros(len(Ks)), 'recall': np.zeros(len(Ks)), 'ndcg': np.zeros(len(Ks)),
-#               'hit_ratio': np.zeros(len(Ks)), 'auc': 0.}
-#
-#     pool = multiprocessing.Pool(cores)
-#
-#     test_users = users_to_test
-#     n_test_users = len(test_users)
-#
-#     user_batch_rating_uid = zip(item_rate, test_users)
-#     batch_result = pool.map(test_one_user, user_batch_rating_uid)
-#
-#
-#     for re in batch_result:
-#         result['precision'] += re['precision']/n_test_users
-#         result['recall'] += re['recall']/n_test_users
-#         result['ndcg'] += re['ndcg']/n_test_users
-#         result['hit_ratio'] += re['hit_ratio']/n_test_users
-#         result['auc'] += re['auc']/n_test_users
-#
-#
-#     pool.close()
-#     return result
 
 
 def test(sess, model, users_to_test):
-    # result = {'precision': np.zeros(len(Ks)), 'recall': np.zeros(len(Ks)), 'ndcg': np.zeros(len(Ks)),
-    #           'hit_ratio': np.zeros(len(Ks)), 'auc': 0.}
     result = {'precision': np.zeros(len(Ks)), 'recall': np.zeros(len(Ks)), 'ndcg': np.zeros(len(Ks))}
 
     pool = multiprocessing.Pool(cores)
@@ -184,48 +159,6 @@ def test(sess, model, users_to_test):
         rate_batch[:, test_u_no] = 0
         user_batch_rating_uid = zip(rate_batch, user_batch)
         batch_result = pool.map(test_one_user_cold_citeu, user_batch_rating_uid)
-
-        # if args.dataset == 'CiteU':
-        #     # rate_batch = sess.run(model.batch_ratings, feed_dict={model.user_social: batch_S_te, model.item_history: data_generator.U_tr})
-        #     # rate_batch = sess.run(model.batch_ratings,
-        #     #                       feed_dict={model.user_social: batch_S_te})
-        #
-        #     batch_bert_te_inputs = [inputs[user_batch, :] for inputs in data_generator.bert_test_inputs]
-        #     batch_S_te_bert = content_embedding[user_batch, :]
-        #     # batch_S_te = np.hstack((data_generator.S_te[user_batch], content_embedding[user_batch, :]))
-        #     feed_dict = {
-        #                   model.user_social: batch_S_te,
-        #                   model.user_social_bert: batch_S_te_bert,
-        #                   model.in_id: batch_bert_te_inputs[0],
-        #                   model.in_mask: batch_bert_te_inputs[1],
-        #                   model.in_segment: batch_bert_te_inputs[2]
-        #                  }
-        #
-        #     rate_batch = sess.run(model.batch_ratings, feed_dict=feed_dict)
-        #
-        #     test_u_no = list(set(range(ITEM_NUM)) - set(data_generator.test_u))
-        #     rate_batch[:, test_u_no] = 0
-        #     user_batch_rating_uid = zip(rate_batch, user_batch)
-        #     batch_result = pool.map(test_one_user_cold_citeu, user_batch_rating_uid)
-        # elif args.dataset == 'Amazon':
-        #     batch_S_te_bert = content_embedding[user_batch, :]
-        #     feed_dict = {
-        #         model.user_social: batch_S_te,
-        #         model.user_social_bert: batch_S_te_bert
-        #     }
-        #
-        #     rate_batch = sess.run(model.batch_ratings, feed_dict=feed_dict)
-        #
-        #     test_u_no = list(set(range(ITEM_NUM)) - set(data_generator.test_u))
-        #     rate_batch[:, test_u_no] = 0
-        #     user_batch_rating_uid = zip(rate_batch, user_batch)
-        #     batch_result = pool.map(test_one_user_cold_citeu, user_batch_rating_uid)
-        #
-        # else:
-        #     rate_batch = sess.run(model.batch_ratings, feed_dict={model.user_social: batch_S_te})
-        #
-        #     user_batch_rating_uid = zip(rate_batch, user_batch)
-        #     batch_result = pool.map(test_one_user_cold, user_batch_rating_uid)
 
         count += len(batch_result)
 
