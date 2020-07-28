@@ -10,15 +10,15 @@ Tensorflow implementation of the paper: "Joint Training Capsule Network for Cold
 
 To reproduce the experiments mentioned in the paper, you can run the following commands:
 
-`<python  main.py  --regs [1e-3] --embed_size 256  --lr 0.0005 --save_flag 1 --batch_size 128 --epoch 100 --dataset 'CiteU'>` 
+``python  main.py  --regs [1e-3] --embed_size 256  --lr 0.0005 --save_flag 1 --batch_size 128 --epoch 100 --verbose 1 --dataset 'CiteU'`` 
 
 
 # Citation
 
 Please cite our paper if you use this code in your own work:
 
-`<@article{liang2020joint,
-  title={Joint Training Capsule Network for Cold Start Recommendation},
+``@article{liang2020joint, title={Joint Training Capsule Network for Cold Start Recommendation},
   author={Liang, Tingting and Xia, Congying and Yin, Yuyu and Yu, Philip S},
   journal={arXiv preprint arXiv:2005.11467},
-  year={2020}}>`
+  year={2020}}
+}``
